@@ -3,6 +3,7 @@ package cn.vividcode.multiplatform.route.api.config
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.window.FrameWindowScope
 
 /**
  * window configure scope.
@@ -11,21 +12,27 @@ import androidx.compose.ui.unit.DpSize
  */
 sealed interface WindowConfigScope {
 	
-	var init: String?
+	/**
+	 * startup window.
+	 */
+	var startup: String?
 	
+	/**
+	 * register.
+	 */
 	fun register(
 		name: String,
 		size: DpSize,
 		title: String = "",
 		icon: Painter? = null,
 		resizable: Boolean = true,
-		content: @Composable () -> Unit
+		content: @Composable FrameWindowScope.() -> Unit
 	)
 }
 
 internal data object WindowConfigScopeImpl : WindowConfigScope {
 	
-	override var init: String? = null
+	override var startup: String? = null
 		set(value) {
 			if (field == null && value != null && nameRegex.matches(value)) {
 				field = value
@@ -45,7 +52,7 @@ internal data object WindowConfigScopeImpl : WindowConfigScope {
 		title: String,
 		icon: Painter?,
 		resizable: Boolean,
-		content: @Composable () -> Unit
+		content: @Composable FrameWindowScope.() -> Unit
 	) {
 		if (!this.windowContentMap.containsKey(name) && nameRegex.matches(name)) {
 			this.windowContentMap[name] = Config(size, title, icon, resizable, content)
@@ -57,6 +64,6 @@ internal data object WindowConfigScopeImpl : WindowConfigScope {
 		val title: String,
 		val icon: Painter?,
 		val resizable: Boolean,
-		val content: @Composable () -> Unit
+		val content: @Composable FrameWindowScope.() -> Unit
 	)
 }

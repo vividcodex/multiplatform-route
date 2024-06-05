@@ -47,7 +47,7 @@ fun ApplicationScope.windows(
 			}
 			VividCodeTheme {
 				CompositionLocalProvider(LocalFrameWindowScope provides this) {
-					config.content()
+					config.content(this)
 				}
 			}
 		}
@@ -58,11 +58,11 @@ private fun getWindowConfigScope(
 	config: WindowConfigScope.() -> Unit,
 	exitApplication: () -> Unit
 ): WindowConfigScopeImpl {
-	if (WindowConfigScopeImpl.init == null) {
+	if (WindowConfigScopeImpl.startup == null) {
 		WindowRouteState.exitApplication = exitApplication
 		WindowConfigScopeImpl.config()
-		if (WindowConfigScopeImpl.init != null) {
-			WindowRouteState.openWindowNames += WindowConfigScopeImpl.init!!
+		if (WindowConfigScopeImpl.startup != null) {
+			WindowRouteState.openWindowNames += WindowConfigScopeImpl.startup!!
 		}
 	}
 	return WindowConfigScopeImpl

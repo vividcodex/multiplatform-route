@@ -27,7 +27,7 @@ fun pages(
 			PageRouteStatus.OnCreate -> RouteConfig.routeAnimation.let {
 				it.onCreateEnter to it.onCreateExit
 			}
-			
+
 			PageRouteStatus.OnBack -> RouteConfig.routeAnimation.let {
 				it.onBackEnter to it.onBackExit
 			}

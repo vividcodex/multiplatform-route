@@ -7,12 +7,12 @@ import cn.vividcode.multiplatform.route.api.route.PageScope
  * page configuration scope.
  */
 sealed interface PageConfigScope {
-	
+
 	/**
-	 * initiating route.
+	 * startup route.
 	 */
-	var init: String?
-	
+	var startup: String?
+
 	/**
 	 * register a page route.
 	 */
@@ -21,7 +21,7 @@ sealed interface PageConfigScope {
 
 internal class PageConfigScopeImpl : PageConfigScope {
 
-	override var init: String? = null
+	override var startup: String? = null
 		set(value) {
 			if (field == null && value != null && routeRegex.matches(value)) {
 				field = value
@@ -31,7 +31,7 @@ internal class PageConfigScopeImpl : PageConfigScope {
 	val pageContentMap = mutableMapOf<String, @Composable PageScope.() -> Unit>()
 
 	private companion object {
-		
+
 		/**
 		 * page route regex.
 		 */
