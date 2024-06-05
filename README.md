@@ -2,6 +2,10 @@
 
 ## 当前版本：0.1.0
 
+## maven
+
+cn.vividcode.multiplatform:route-api:0.1.0
+
 ## 使用教程
 
 移动端
