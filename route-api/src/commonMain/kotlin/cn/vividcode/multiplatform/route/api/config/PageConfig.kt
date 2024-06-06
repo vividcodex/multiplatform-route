@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import cn.vividcode.multiplatform.route.api.RouteConfig
 import cn.vividcode.multiplatform.route.api.route.PageRouteStatus
 import cn.vividcode.multiplatform.route.api.route.PageScope
-import cn.vividcode.multiplatform.route.api.route.getPageScope
+import cn.vividcode.multiplatform.route.api.route.getInstance
 
 /**
  * You can configure page routes and components in pages,
@@ -18,10 +18,10 @@ import cn.vividcode.multiplatform.route.api.route.getPageScope
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun pages(
-	name: String = "",
+	name: String = MobileName,
 	config: PageConfigScope.() -> Unit
 ) {
-	val pageScope = getPageScope(name, config)
+	val pageScope = getInstance(name, config)
 	pageScope.PageFrame {
 		val (enter, exit) = when (currentPageRouteStatus) {
 			PageRouteStatus.OnCreate -> RouteConfig.routeAnimation.let {
@@ -46,3 +46,5 @@ fun pages(
 		}
 	}
 }
+
+const val MobileName = "mobile"

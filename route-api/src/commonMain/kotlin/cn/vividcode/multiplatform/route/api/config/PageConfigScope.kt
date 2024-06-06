@@ -35,14 +35,14 @@ internal class PageConfigScopeImpl : PageConfigScope {
 		/**
 		 * page route regex.
 		 */
-		private val routeRegex = "^(/[a-zA-Z]+)+$".toRegex()
+		private val routeRegex = "^(/[a-zA-Z0-9]+)+$".toRegex()
 	}
 
 	/**
 	 * register a page route
 	 */
 	override fun register(route: String, content: @Composable PageScope.() -> Unit) {
-		if (!this.pageContentMap.containsKey(route) && routeRegex.matches(route)) {
+		if (routeRegex.matches(route)) {
 			this.pageContentMap[route] = content
 		}
 	}

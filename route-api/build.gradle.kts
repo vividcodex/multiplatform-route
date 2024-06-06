@@ -1,9 +1,7 @@
-
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
-import java.awt.SystemColor.desktop
 
 plugins {
 	alias(libs.plugins.kotlin.multiplatform)

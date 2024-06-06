@@ -6,16 +6,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.ApplicationScope
-import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.WindowPosition
-import androidx.compose.ui.window.WindowState
+import androidx.compose.ui.window.*
 import cn.vividcode.multiplatform.route.api.compose.LocalFrameWindowScope
-import cn.vividcode.multiplatform.route.api.property.setAppleAwtFullWindowContent
-import cn.vividcode.multiplatform.route.api.property.setAppleAwtTransparentTitleBar
+import cn.vividcode.multiplatform.route.api.expends.setAppleAwtFullWindowContent
+import cn.vividcode.multiplatform.route.api.expends.setAppleAwtTransparentTitleBar
+import cn.vividcode.multiplatform.route.api.expends.setMinWindowSize
+import cn.vividcode.multiplatform.route.api.route.PageScope
 import cn.vividcode.multiplatform.route.api.route.WindowRouteState
 import cn.vividcode.multiplatform.route.api.route.close
-import cn.vividcode.multiplatform.route.api.route.pageScopeCache
 import cn.vividcode.multiplatform.route.api.theme.VividCodeTheme
 import java.awt.GraphicsEnvironment
 import java.awt.MouseInfo
@@ -33,17 +31,21 @@ fun ApplicationScope.windows(
 	scope.windowContentMap.forEach { (name, config) ->
 		Window(
 			onCloseRequest = {
-				pageScopeCache[name]?.close()
+				PageScope.pageScopeCache[name]?.close()
 			},
 			state = getWindowState(name, config.size),
 			visible = WindowRouteState.openWindowNames.contains(name),
 			title = config.title,
 			icon = config.icon,
-			resizable = config.resizable
+			resizable = config.size is ResizableWindowSize
 		) {
 			LaunchedEffect(Unit) {
 				setAppleAwtFullWindowContent(true)
 				setAppleAwtTransparentTitleBar(true)
+				if (config.size is ResizableWindowSize) {
+					val size = config.size
+					setMinWindowSize(size.minWidth, size.minHeight)
+				}
 			}
 			VividCodeTheme {
 				CompositionLocalProvider(LocalFrameWindowScope provides this) {
@@ -76,9 +78,10 @@ private val GraphicsDevices by lazy {
 
 private val point by lazy { MouseInfo.getPointerInfo().location }
 
+@Composable
 private fun getWindowState(
 	name: String,
-	size: DpSize
+	size: WindowSize,
 ): WindowState {
 	return WindowStateMap.getOrPut(name) {
 		var position: WindowPosition? = null
@@ -92,9 +95,9 @@ private fun getWindowState(
 				return@forEach
 			}
 		}
-		WindowState(
+		rememberWindowState(
 			position = position ?: WindowPosition.Aligned(Alignment.Center),
-			size = size
+			size = DpSize(size.width, size.height)
 		)
 	}
 }

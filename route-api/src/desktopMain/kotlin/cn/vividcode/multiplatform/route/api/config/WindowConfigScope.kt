@@ -22,10 +22,9 @@ sealed interface WindowConfigScope {
 	 */
 	fun register(
 		name: String,
-		size: DpSize,
+		size: WindowSize,
 		title: String = "",
 		icon: Painter? = null,
-		resizable: Boolean = true,
 		content: @Composable FrameWindowScope.() -> Unit
 	)
 }
@@ -41,29 +40,27 @@ internal data object WindowConfigScopeImpl : WindowConfigScope {
 	
 	val windowContentMap = mutableMapOf<String, Config>()
 	
-	private val nameRegex = "^[a-zA-Z]+$".toRegex()
+	private val nameRegex = "^[a-zA-Z0-9]+$".toRegex()
 	
 	/**
 	 * register
 	 */
 	override fun register(
 		name: String,
-		size: DpSize,
+		size: WindowSize,
 		title: String,
 		icon: Painter?,
-		resizable: Boolean,
 		content: @Composable FrameWindowScope.() -> Unit
 	) {
-		if (!this.windowContentMap.containsKey(name) && nameRegex.matches(name)) {
-			this.windowContentMap[name] = Config(size, title, icon, resizable, content)
+		if (nameRegex.matches(name)) {
+			this.windowContentMap[name] = Config(size, title, icon, content)
 		}
 	}
 	
 	internal data class Config(
-		val size: DpSize,
+		val size: WindowSize,
 		val title: String,
 		val icon: Painter?,
-		val resizable: Boolean,
 		val content: @Composable FrameWindowScope.() -> Unit
 	)
 }

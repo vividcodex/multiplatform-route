@@ -1,0 +1,21 @@
+{
+	"configurations": [
+		{
+			"name": "sample [Desktop] (1)",
+			"type": "gradle",
+			"workingDir": "$PROJECT_DIR$",
+			"tasks": [
+				"desktopRun"
+			],
+			"args": [
+				"-DmainClass=cn.vividcode.multiplatform.route.sample.MainKt",
+				"--quiet",
+				"-p",
+				"$PROJECT_DIR$/sample"
+			],
+			"initScripts": {
+				"flmapper": "ext.mapPath = { path -> null }"
+			}
+		}
+	]
+}

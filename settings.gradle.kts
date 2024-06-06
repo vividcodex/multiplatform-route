@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 	}
 }
 include("route-api")
-include("route-ksp")
+include("sample")
