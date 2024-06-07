@@ -6,7 +6,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import cn.vividcode.multiplatform.route.api.RouteConfig
-import cn.vividcode.multiplatform.route.api.limit.RouteAllowState
+import cn.vividcode.multiplatform.route.api.route.RouteAllowState
 import cn.vividcode.multiplatform.route.api.theme.color.ColorMode
 
 /**

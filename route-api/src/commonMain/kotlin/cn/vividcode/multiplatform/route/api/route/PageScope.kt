@@ -4,7 +4,6 @@ import androidx.compose.runtime.*
 import cn.vividcode.multiplatform.route.api.config.MobileName
 import cn.vividcode.multiplatform.route.api.config.PageConfigScope
 import cn.vividcode.multiplatform.route.api.config.PageConfigScopeImpl
-import cn.vividcode.multiplatform.route.api.limit.RouteAllowState
 import kotlin.math.min
 
 /**

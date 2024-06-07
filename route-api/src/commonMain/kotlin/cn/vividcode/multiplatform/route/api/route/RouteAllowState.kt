@@ -1,4 +1,4 @@
-package cn.vividcode.multiplatform.route.api.limit
+package cn.vividcode.multiplatform.route.api.route
 
 /**
  * restricted operation status of the route.

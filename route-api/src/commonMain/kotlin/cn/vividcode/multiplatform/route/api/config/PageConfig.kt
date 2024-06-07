@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import cn.vividcode.multiplatform.route.api.RouteConfig
-import cn.vividcode.multiplatform.route.api.limit.RouteAllowState
+import cn.vividcode.multiplatform.route.api.route.RouteAllowState
 import cn.vividcode.multiplatform.route.api.route.PageRouteStatus
 import cn.vividcode.multiplatform.route.api.route.getInstance
 
