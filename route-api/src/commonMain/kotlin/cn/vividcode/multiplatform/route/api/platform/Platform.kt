@@ -3,35 +3,45 @@ package cn.vividcode.multiplatform.route.api.platform
 /**
  * currently running platform.
  */
-expect val LocalPlatform: Platform
+internal expect val LocalPlatform: Platform
 
-interface Platform {
+sealed interface Platform {
 	
 	companion object {
 		
-		val isAndroid = LocalPlatform == MobilePlatform.Android
+		val isAndroid = LocalPlatform == Android
 		
-		val isIOS = LocalPlatform == MobilePlatform.IOS
+		val isIOS = LocalPlatform == IOS
 		
-		val isMacos = LocalPlatform == DesktopPlatform.Macos
+		val isMacos = LocalPlatform == Macos
 		
-		val isWindows = LocalPlatform == DesktopPlatform.Windows
+		val isWindows = LocalPlatform == Windows
 		
-		val isLinux = LocalPlatform == DesktopPlatform.Linux
+		val isLinux = LocalPlatform == Linux
 		
-		val isMobile = LocalPlatform is MobilePlatform
+		val isMobile = LocalPlatform is Mobile
 		
-		val isDesktop = LocalPlatform is DesktopPlatform
+		val isDesktop = LocalPlatform is Desktop
 	}
 }
 
-internal enum class MobilePlatform : Platform {
-	Android,
-	IOS
+interface Mobile : Platform {
+	
+	companion object : Platform
 }
 
-internal enum class DesktopPlatform : Platform {
-	Macos,
-	Windows,
-	Linux
+interface Desktop : Platform {
+	
+	companion object : Platform
 }
+
+data object Android : Mobile
+
+data object IOS : Mobile
+
+data object Macos : Desktop
+
+data object Windows : Desktop
+
+data object Linux : Desktop
+
