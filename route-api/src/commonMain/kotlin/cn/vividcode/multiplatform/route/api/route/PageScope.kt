@@ -4,7 +4,7 @@ import androidx.compose.runtime.*
 import cn.vividcode.multiplatform.route.api.config.MobileName
 import cn.vividcode.multiplatform.route.api.config.PageConfigScope
 import cn.vividcode.multiplatform.route.api.config.PageConfigScopeImpl
-import cn.vividcode.multiplatform.route.api.limit.RouteLimit
+import cn.vividcode.multiplatform.route.api.limit.RouteAllowState
 import kotlin.math.min
 
 /**
@@ -86,7 +86,7 @@ internal class PageScopeImpl(
 		get() = pageRouteStack.size
 	
 	override fun route(route: String, vararg data: Pair<String, *>, finish: Boolean, finishAll: Boolean): Boolean {
-		if (!RouteLimit.isAllowRoute || !routeMap.keys.contains(route)) {
+		if (!RouteAllowState.isAllowRoute || !routeMap.keys.contains(route)) {
 			return false
 		}
 		this.currentPageRouteStatus = PageRouteStatus.OnCreate
@@ -102,7 +102,7 @@ internal class PageScopeImpl(
 	}
 	
 	override fun back(vararg data: Pair<String, *>, resultCode: Int, depth: Int, toFirst: Boolean): Boolean {
-		if (!RouteLimit.isAllowRoute || depth < 1 || this.size == 1) {
+		if (!RouteAllowState.isAllowRoute || depth < 1 || this.size == 1) {
 			return false
 		}
 		this.currentPageRouteStatus = PageRouteStatus.OnBack

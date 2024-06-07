@@ -3,7 +3,7 @@ package cn.vividcode.multiplatform.route.api.limit
 /**
  * restricted operation status of the route.
  */
-object RouteLimit {
+object RouteAllowState {
 	
 	/**
 	 * whether to allow color mode modification.

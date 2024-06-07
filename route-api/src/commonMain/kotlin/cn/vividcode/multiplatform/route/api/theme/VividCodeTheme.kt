@@ -6,7 +6,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import cn.vividcode.multiplatform.route.api.RouteConfig
-import cn.vividcode.multiplatform.route.api.limit.RouteLimit
+import cn.vividcode.multiplatform.route.api.limit.RouteAllowState
 import cn.vividcode.multiplatform.route.api.theme.color.ColorMode
 
 /**
@@ -30,7 +30,7 @@ internal fun VividCodeTheme(
 			targetState = colorScheme,
 			transitionSpec = { TransitionSpec },
 		) {
-			RouteLimit.isAllowModificationColorMode = !this.transition.isRunning
+			RouteAllowState.isAllowModificationColorMode = !this.transition.isRunning
 			MaterialTheme(
 				colorScheme = it,
 				content = content
