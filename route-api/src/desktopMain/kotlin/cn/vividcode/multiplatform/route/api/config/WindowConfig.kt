@@ -29,16 +29,18 @@ fun ApplicationScope.windows(
 ) {
 	val scope = getWindowConfigScope(config, this::exitApplication)
 	scope.windowContentMap.forEach { (name, config) ->
+		val visible = WindowRouteState.openWindowNames.contains(name)
 		Window(
 			onCloseRequest = {
 				PageScope.pageScopeCache[name]?.close()
 			},
 			state = getWindowState(name, config.size),
-			visible = WindowRouteState.openWindowNames.contains(name),
+			visible = visible,
 			title = config.title,
 			icon = config.icon,
 			resizable = config.size is ResizableWindowSize
 		) {
+			if (!visible) return@Window
 			LaunchedEffect(Unit) {
 				setAppleAwtFullWindowContent(true)
 				setAppleAwtTransparentTitleBar(true)
