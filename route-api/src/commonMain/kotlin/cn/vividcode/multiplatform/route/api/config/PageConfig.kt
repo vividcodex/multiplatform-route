@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import cn.vividcode.multiplatform.route.api.RouteConfig
+import cn.vividcode.multiplatform.route.api.limit.RouteLimit
 import cn.vividcode.multiplatform.route.api.route.PageRouteStatus
 import cn.vividcode.multiplatform.route.api.route.PageScope
 import cn.vividcode.multiplatform.route.api.route.getInstance
@@ -40,7 +41,7 @@ fun pages(
 				enter = enter,
 				exit = exit
 			) {
-				PageScope.canRoute = !this.transition.isRunning
+				RouteLimit.isAllowRoute = !this.transition.isRunning
 				content()
 			}
 		}

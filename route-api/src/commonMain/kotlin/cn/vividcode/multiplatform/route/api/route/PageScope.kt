@@ -4,6 +4,7 @@ import androidx.compose.runtime.*
 import cn.vividcode.multiplatform.route.api.config.MobileName
 import cn.vividcode.multiplatform.route.api.config.PageConfigScope
 import cn.vividcode.multiplatform.route.api.config.PageConfigScopeImpl
+import cn.vividcode.multiplatform.route.api.limit.RouteLimit
 import kotlin.math.min
 
 /**
@@ -14,12 +15,6 @@ import kotlin.math.min
 sealed interface PageScope {
 	
 	companion object {
-		
-		/**
-		 * Whether you can use the route, you do not allow the route during the route switching process.
-		 */
-		var canRoute = true
-			internal set
 		
 		internal val pageScopeCache = mutableMapOf<String, PageScope>()
 		
@@ -91,7 +86,7 @@ internal class PageScopeImpl(
 		get() = pageRouteStack.size
 	
 	override fun route(route: String, vararg data: Pair<String, *>, finish: Boolean, finishAll: Boolean): Boolean {
-		if (!PageScope.canRoute || !routeMap.keys.contains(route)) {
+		if (!RouteLimit.isAllowRoute || !routeMap.keys.contains(route)) {
 			return false
 		}
 		this.currentPageRouteStatus = PageRouteStatus.OnCreate
@@ -107,7 +102,7 @@ internal class PageScopeImpl(
 	}
 	
 	override fun back(vararg data: Pair<String, *>, resultCode: Int, depth: Int, toFirst: Boolean): Boolean {
-		if (!PageScope.canRoute || depth < 1 || this.size == 1) {
+		if (!RouteLimit.isAllowRoute || depth < 1 || this.size == 1) {
 			return false
 		}
 		this.currentPageRouteStatus = PageRouteStatus.OnBack
