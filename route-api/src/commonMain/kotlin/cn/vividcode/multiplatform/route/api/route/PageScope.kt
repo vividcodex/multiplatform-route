@@ -15,7 +15,11 @@ sealed interface PageScope {
 	
 	companion object {
 		
-		internal var canRoute = true
+		/**
+		 * Whether you can use the route, you do not allow the route during the route switching process.
+		 */
+		var canRoute = true
+			internal set
 		
 		internal val pageScopeCache = mutableMapOf<String, PageScope>()
 		
@@ -42,14 +46,14 @@ sealed interface PageScope {
 		vararg data: Pair<String, *>,
 		finish: Boolean = false,
 		finishAll: Boolean = false
-	)
+	): Boolean
 	
 	fun back(
 		vararg data: Pair<String, *>,
 		resultCode: Int = ResultCode.BACK,
 		depth: Int = 1,
 		toFirst: Boolean = false
-	)
+	): Boolean
 	
 	@Composable
 	fun onCreate(
@@ -86,10 +90,9 @@ internal class PageScopeImpl(
 	override val size: Int
 		get() = pageRouteStack.size
 	
-	override fun route(route: String, vararg data: Pair<String, *>, finish: Boolean, finishAll: Boolean) {
-		if (!PageScope.canRoute) return
-		if (!routeMap.keys.contains(route)) {
-			error("$route not found.")
+	override fun route(route: String, vararg data: Pair<String, *>, finish: Boolean, finishAll: Boolean): Boolean {
+		if (!PageScope.canRoute || !routeMap.keys.contains(route)) {
+			return false
 		}
 		this.currentPageRouteStatus = PageRouteStatus.OnCreate
 		this.createScopeCache[route] = CreateScopeImpl(data.toMap(), currentPageRoute)
@@ -100,11 +103,13 @@ internal class PageScopeImpl(
 		}
 		this.pageRouteStack += route
 		this.currentPageRoute = route
+		return true
 	}
 	
-	override fun back(vararg data: Pair<String, *>, resultCode: Int, depth: Int, toFirst: Boolean) {
-		if (!PageScope.canRoute) return
-		if (depth < 1) error("depth must be not < 1.")
+	override fun back(vararg data: Pair<String, *>, resultCode: Int, depth: Int, toFirst: Boolean): Boolean {
+		if (!PageScope.canRoute || depth < 1 || this.size == 1) {
+			return false
+		}
 		this.currentPageRouteStatus = PageRouteStatus.OnBack
 		repeat(min(pageRouteStack.size - 1, if (toFirst) Int.MAX_VALUE else depth)) {
 			this.pageRouteStack.removeLast()
@@ -112,6 +117,7 @@ internal class PageScopeImpl(
 		val route = pageRouteStack.last()
 		this.backScopeCache[route] = BackScopeImpl(data.toMap(), resultCode, this.currentPageRoute)
 		this.currentPageRoute = route
+		return true
 	}
 	
 	@Composable

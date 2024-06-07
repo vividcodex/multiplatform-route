@@ -15,13 +15,7 @@ import cn.vividcode.multiplatform.route.api.route.PageScope
 import cn.vividcode.multiplatform.route.api.route.open
 
 /**
- * 项目：vividcode-multiplatform-route
- *
- * 作者：li-jia-wei
- *
- * 创建：2024/6/6 下午5:35
- *
- * 介绍：Window1
+ * Window1
  */
 @Composable
 fun Window1() {
