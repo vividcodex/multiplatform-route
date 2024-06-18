@@ -8,7 +8,7 @@ import java.awt.Dimension
 /**
  * full window content on macos.
  */
-fun FrameWindowScope.setAppleAwtFullWindowContent(value: Boolean) {
+internal fun FrameWindowScope.setAppleAwtFullWindowContent(value: Boolean) {
 	if (Platform.isMacos) {
 		this.window.rootPane.putClientProperty("apple.awt.fullWindowContent", value)
 	}
@@ -17,7 +17,7 @@ fun FrameWindowScope.setAppleAwtFullWindowContent(value: Boolean) {
 /**
  * transparent title bar on macos.
  */
-fun FrameWindowScope.setAppleAwtTransparentTitleBar(value: Boolean) {
+internal fun FrameWindowScope.setAppleAwtTransparentTitleBar(value: Boolean) {
 	if (Platform.isMacos) {
 		this.window.rootPane.putClientProperty("apple.awt.transparentTitleBar", value)
 	}
@@ -26,6 +26,6 @@ fun FrameWindowScope.setAppleAwtTransparentTitleBar(value: Boolean) {
 /**
  * set the minimum width and height of the window.
  */
-fun FrameWindowScope.setMinWindowSize(width: Dp, height: Dp) {
+internal fun FrameWindowScope.setMinWindowSize(width: Dp, height: Dp) {
 	this.window.minimumSize = Dimension(width.value.toInt(), height.value.toInt())
 }

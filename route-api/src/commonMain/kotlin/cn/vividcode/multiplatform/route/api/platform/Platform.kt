@@ -22,6 +22,8 @@ sealed interface Platform {
 		val isMobile = LocalPlatform is Mobile
 		
 		val isDesktop = LocalPlatform is Desktop
+		
+		val isWeb = LocalPlatform is Web
 	}
 }
 
@@ -45,3 +47,4 @@ data object Windows : Desktop
 
 data object Linux : Desktop
 
+data object Web : Platform
