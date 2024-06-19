@@ -1,5 +1,7 @@
 package cn.vividcode.multiplatform.route.api.platform
 
+import androidx.compose.ui.Modifier
+
 /**
  * currently running platform.
  */
@@ -29,12 +31,12 @@ sealed interface Platform {
 
 interface Mobile : Platform {
 	
-	companion object : Platform
+	companion object : Mobile
 }
 
 interface Desktop : Platform {
 	
-	companion object : Platform
+	companion object : Desktop
 }
 
 data object Android : Mobile
@@ -48,3 +50,18 @@ data object Windows : Desktop
 data object Linux : Desktop
 
 data object Web : Platform
+
+/**
+ * Modifiers for different platforms depending on the platform
+ */
+fun Modifier.platform(
+	vararg platforms: Platform,
+	modifier: Modifier.() -> Modifier
+): Modifier {
+	if (platforms.isEmpty()) return this
+	return if (
+		platforms.any { it == LocalPlatform }
+		|| (Mobile in platforms && LocalPlatform is Mobile)
+		|| (Desktop in platforms && LocalPlatform is Desktop)
+	) this.modifier() else this
+}
