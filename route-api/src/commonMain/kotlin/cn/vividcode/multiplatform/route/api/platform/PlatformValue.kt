@@ -10,14 +10,10 @@ fun <T> platformValue(
 	if (platformValues.isEmpty()) {
 		error("The platformValues cannot be empty!!")
 	}
-	val contains = mutableListOf<Platform>()
-	platformValues.forEach {
-		if (contains.contains(it.first)) {
-			error("You cannot set multiple values for the same platform!")
-		}
-		contains += it.first
-	}
 	val platformValuesMap = platformValues.toMap()
+	if (platformValues.size != platformValuesMap.size) {
+		error("You cannot set multiple values for the same platform!")
+	}
 	return when {
 		platformValuesMap.containsKey(LocalPlatform) -> platformValuesMap[LocalPlatform]
 		Platform.isMobile && platformValuesMap.containsKey(Mobile) -> platformValuesMap[Mobile]
