@@ -7,12 +7,12 @@ package cn.vividcode.multiplatform.route.api.platform
 fun <T> platformValue(
 	vararg platformValues: Pair<Platform, T>
 ): T {
-	if (platformValues.isEmpty()) {
-		error("The platformValues cannot be empty!!")
+	check(platformValues.isNotEmpty()) {
+		"The platformValues cannot be empty!"
 	}
 	val platformValuesMap = platformValues.toMap()
-	if (platformValues.size != platformValuesMap.size) {
-		error("You cannot set multiple values for the same platform!")
+	check(platformValues.size == platformValuesMap.size) {
+		"You cannot set multiple values for the same platform!"
 	}
 	return when {
 		platformValuesMap.containsKey(LocalPlatform) -> platformValuesMap[LocalPlatform]

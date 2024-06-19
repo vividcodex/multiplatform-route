@@ -142,8 +142,8 @@ internal fun getInstance(
 	config: PageConfigScope.() -> Unit
 ): PageScope {
 	return PageConfigScopeImpl().apply(config).let {
-		if (it.startup == null) {
-			error("init not configuration.")
+		checkNotNull(it.startup) {
+			"init not configuration."
 		}
 		PageScope.pageScopeCache.getOrPut(name) {
 			PageScopeImpl(it.startup!!, name, it.pageContentMap)
