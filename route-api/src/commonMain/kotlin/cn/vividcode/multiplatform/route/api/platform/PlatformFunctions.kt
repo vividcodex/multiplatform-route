@@ -32,7 +32,9 @@ fun Modifier.platform(
 	modifier: Modifier.() -> Modifier
 ): Modifier {
 	if (platforms.isEmpty()) return this
-	return if (platforms.any { LocalPlatform::class.isInstance(it) }) {
-		this.modifier()
-	} else this
+	return if (
+		platforms.any { it == LocalPlatform }
+		|| (Mobile in platforms && LocalPlatform is Mobile)
+		|| (Desktop in platforms && LocalPlatform is Desktop)
+	) this.modifier() else this
 }
