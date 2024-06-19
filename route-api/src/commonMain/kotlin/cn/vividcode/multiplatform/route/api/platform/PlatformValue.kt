@@ -26,26 +26,26 @@ fun <T> platformValue(
 	} as T
 }
 
-val <T> T.android: Pair<Android, T>
+inline val <T> T.android: Pair<Android, T>
 	get() = Android to this
 
-val <T> T.ios: Pair<IOS, T>
+inline val <T> T.ios: Pair<IOS, T>
 	get() = IOS to this
 
-val <T> T.web: Pair<Web, T>
+inline val <T> T.web: Pair<Web, T>
 	get() = Web to this
 
-val <T> T.windows: Pair<Windows, T>
+inline val <T> T.windows: Pair<Windows, T>
 	get() = Windows to this
 
-val <T> T.macos: Pair<Macos, T>
+inline val <T> T.macos: Pair<Macos, T>
 	get() = Macos to this
 
-val <T> T.linux: Pair<Linux, T>
+inline val <T> T.linux: Pair<Linux, T>
 	get() = Linux to this
 
-val <T> T.mobile: Pair<Mobile, T>
+inline val <T> T.mobile: Pair<Mobile, T>
 	get() = Mobile to this
 
-val <T> T.desktop: Pair<Desktop, T>
+inline val <T> T.desktop: Pair<Desktop, T>
 	get() = Desktop to this

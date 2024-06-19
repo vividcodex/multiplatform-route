@@ -29,12 +29,12 @@ sealed interface Platform {
 	}
 }
 
-interface Mobile : Platform {
+sealed interface Mobile : Platform {
 	
 	companion object : Mobile
 }
 
-interface Desktop : Platform {
+sealed interface Desktop : Platform {
 	
 	companion object : Desktop
 }
