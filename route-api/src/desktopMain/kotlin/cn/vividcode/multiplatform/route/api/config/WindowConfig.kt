@@ -40,6 +40,7 @@ fun ApplicationScope.windows(
 			icon = config.icon,
 			resizable = config.size is ResizableWindowSize
 		) {
+			if (!visible) return@Window
 			LaunchedEffect(Unit) {
 				setAppleAwtFullWindowContent(true)
 				setAppleAwtTransparentTitleBar(true)
