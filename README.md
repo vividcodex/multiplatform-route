@@ -1,10 +1,10 @@
 # 基于 Kotlin Multiplatform 实现的路由框架
 
-## 当前最新版本：0.1.1
+## 当前最新版本：0.1.2
 
 ## maven
 
-cn.vividcode.multiplatform:route-api:0.1.1
+cn.vividcode.multiplatform:route-api:0.1.2
 
 ## 使用教程
 
